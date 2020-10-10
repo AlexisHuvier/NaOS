@@ -6,6 +6,7 @@ import sys
 pygame.init()
 
 from naos.utils import Color
+from naos.graphics import NaOSBar
 
 class NaOS:
     def __init__(self, debug=False):
@@ -30,6 +31,8 @@ class NaOS:
         self.clock = pygame.time.Clock()
         self.is_running = False
 
+        self.entities = [NaOSBar(self)]
+
     def stop(self):
         self.is_running = False
     
@@ -40,6 +43,9 @@ class NaOS:
                 self.process_event(event)
             
             self.screen.fill(self.bg_color.get_rgba())
+
+            for i in self.entities:
+                i.show(self.screen)
 
             if self.debug:
                 try:
@@ -57,6 +63,10 @@ class NaOS:
     def process_event(self, evt):
         if evt.type == pygame.QUIT or (evt.type == pygame.KEYUP and evt.key == pygame.K_ESCAPE):
             self.stop()
+        else:
+            for i in self.entities:
+                if i.event(evt):
+                    break
 
 
 
