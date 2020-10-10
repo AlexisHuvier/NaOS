@@ -6,13 +6,12 @@ import sys
 pygame.init()
 
 from naos.utils import Color
-from naos.graphics import NaOSBar
+from naos.graphics.entities import NaOSBar, Window
 
 class NaOS:
     def __init__(self, debug=False):
         self.paths = {
             "files": os.path.join(os.getenv('APPDATA'), "NaOS"),
-            "system_files": os.path.join(os.getenv('APPDATA'), "NaOS", "system"),
             "users_files": os.path.join(os.getenv('APPDATA'), "NaOS", "users"),
             "programs_files": os.path.join(os.getenv('APPDATA'), "NaOS", "programs"),
         }
@@ -31,7 +30,7 @@ class NaOS:
         self.clock = pygame.time.Clock()
         self.is_running = False
 
-        self.entities = [NaOSBar(self)]
+        self.entities = [Window("Test", 200, 200), NaOSBar()]
 
     def stop(self):
         self.is_running = False
