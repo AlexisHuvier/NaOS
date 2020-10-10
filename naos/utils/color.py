@@ -1,3 +1,5 @@
+from naos.utils.utils import clamp
+
 class Color:
     def __init__(self):
         self.r = 0
