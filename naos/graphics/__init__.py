@@ -1,1 +1,0 @@
-from naos.graphics.naosbar import NaOSBar
