@@ -67,9 +67,13 @@ class NaOS:
         if evt.type == pygame.QUIT or (evt.type == pygame.KEYUP and evt.key == pygame.K_ESCAPE):
             self.stop()
         else:
-            for i in self.entities:
-                if i.event(evt):
-                    break
+            for i in range(len(self.entities)):
+                entity = self.entities[i]
+                if entity.event(evt):
+                    if entity in self.entities:
+                        self.entities = self.entities[:i] + self.entities[i+1:] + [self.entities[i]]
+                    return
+            self.naosbar.event(evt)
 
 
 
