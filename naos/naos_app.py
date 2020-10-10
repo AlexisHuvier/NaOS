@@ -30,7 +30,10 @@ class NaOS:
         self.clock = pygame.time.Clock()
         self.is_running = False
 
-        self.entities = [Window("Test", 200, 200), NaOSBar()]
+        self.naosbar = NaOSBar()
+        self.entities = [Window("Test", 200, 200), Window("Test2", 500, 500, 300)]
+        for i in self.entities:
+            i.naos = self
 
     def stop(self):
         self.is_running = False
@@ -45,6 +48,7 @@ class NaOS:
 
             for i in self.entities:
                 i.show(self.screen)
+            self.naosbar.show(self.screen)
 
             if self.debug:
                 try:
