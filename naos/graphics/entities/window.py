@@ -48,17 +48,17 @@ class Window:
         for i in self.widgets:
             if i.event(evt):
                 return True
-
         return False
 
     def show(self, screen):
         pygame.draw.rect(screen, Color.from_name("BLACK").get_rgba(), pygame.Rect(self.x-1, self.y-1, self.width + 2, self.height + 22))
         pygame.draw.rect(screen, Color.from_name("GRAY").darker(2).get_rgba(), pygame.Rect(self.x, self.y, self.width, 20))
         pygame.draw.rect(screen, Color.from_name("GRAY").get_rgba(), pygame.Rect(self.x, self.y+20, self.width, self.height))
-        screen.blit(self.font.render(self.title), (self.x + 2, self.y + 2))
+        screen.blit(self.font.render(self.title), (self.x + 4, self.y + 2))
         pygame.draw.rect(screen, Color.from_name("RED").get_rgba(), pygame.Rect(self.x + self.width - 18, self.y+2, 16, 16))
 
+        intra_canvas = screen.subsurface(pygame.Rect(self.x, self.y+20, self.width, self.height))
         for i in self.widgets:
-            i.show(screen)
+            i.show(intra_canvas)
 
     
