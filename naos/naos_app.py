@@ -7,7 +7,7 @@ pygame.init()
 
 from naos.utils import Color, Database, Font
 from naos.graphics.entities import *
-from naos.graphics.widgets import Label
+from naos.graphics.widgets import *
 
 class NaOS:
     def __init__(self, debug=False):
@@ -42,7 +42,8 @@ class NaOS:
         self.naosbar = NaOSBar()
         self.startmenu = StartMenu()
         test = Window("More Advanced Test", 480, 300, 500, 500)
-        test.add_widget(Label(0, 0, "Ceci est un bon test je trouve."))
+        test.add_widget(Label(2, 2, "Ceci est un bon test je trouve."))
+        test.add_widget(Label(2, 50, "Ceci est un test\nAvec plusieurs lignes.\nNon ?"))
         self.windows = [Window("Test", 200, 200), test]
         for i in self.windows:
             i.naos = self
