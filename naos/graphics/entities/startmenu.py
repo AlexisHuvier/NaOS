@@ -7,9 +7,6 @@ class StartMenu:
         self.open = False
         self.naos = None
 
-    def event(self, evt):
-        return False
-
     def show(self, screen):
         if self.open:
             pygame.draw.rect(screen, Color.from_name("BLACK").get_rgba(), pygame.Rect(-1, 649, 302, 402))

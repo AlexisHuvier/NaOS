@@ -40,8 +40,10 @@ class NaOS:
 
         self.naosbar = NaOSBar()
         self.startmenu = StartMenu()
-        self.entities = [Window("Test", 200, 200), Window("Test2", 500, 500, 300)]
-        for i in self.entities:
+        test = Window("More Advanced Test", 480, 300, 500, 500)
+        test.add_widget(Label(0, 0, "Ceci est un bon test je trouve."))
+        self.windows = [Window("Test", 200, 200), test]
+        for i in self.windows:
             i.naos = self
         self.startmenu.naos = self
         self.naosbar.naos = self
@@ -59,7 +61,7 @@ class NaOS:
             if self.bg is not None:
                 self.screen.blit(self.bg, (0, 0))
 
-            for i in self.entities:
+            for i in self.windows:
                 i.show(self.screen)
             self.startmenu.show(self.screen)
             self.naosbar.show(self.screen)
@@ -81,11 +83,11 @@ class NaOS:
         if evt.type == pygame.QUIT or (evt.type == pygame.KEYUP and evt.key == pygame.K_ESCAPE):
             self.stop()
         else:
-            for i in range(len(self.entities)):
-                entity = self.entities[i]
+            for i in range(len(self.windows)):
+                entity = self.windows[i]
                 if entity.event(evt):
-                    if entity in self.entities:
-                        self.entities = self.entities[:i] + self.entities[i+1:] + [self.entities[i]]
+                    if entity in self.windows:
+                        self.windows = self.windows[:i] + self.windows[i+1:] + [self.windows[i]]
                     return
             self.naosbar.event(evt)
 
