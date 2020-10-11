@@ -7,6 +7,7 @@ pygame.init()
 
 from naos.utils import Color, Database, Font
 from naos.graphics.entities import *
+from naos.graphics.widgets import Label
 
 class NaOS:
     def __init__(self, debug=False):
@@ -56,6 +57,9 @@ class NaOS:
         while self.is_running:
             for event in pygame.event.get():
                 self.process_event(event)
+
+            for i in self.windows:
+                i.update()
             
             self.screen.fill(self.bg_color.get_rgba())
             if self.bg is not None:

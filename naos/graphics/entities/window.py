@@ -14,6 +14,16 @@ class Window:
         self.naos = None
         self.is_dragged = False
         self.drag_offset = [0, 0]
+        self.widgets = []
+
+    def add_widget(self, widget):
+        if widget.parent is None:
+            self.widgets.append(widget)
+            widget.parent = self
+        
+    def update(self):
+        for i in self.widgets:
+            i.update()
 
     def event(self, evt):
         if evt.type == pygame.MOUSEBUTTONUP and evt.button == pygame.BUTTON_LEFT and  pygame.Rect(self.x + self.width - 18, self.y+2, 16, 16).collidepoint(evt.pos[0], evt.pos[1]):
@@ -32,6 +42,10 @@ class Window:
             self.y = evt.pos[1] - self.drag_offset[1]
             return True
 
+        for i in self.widgets:
+            if i.event(evt):
+                return True
+
         return False
 
     def show(self, screen):
@@ -40,5 +54,8 @@ class Window:
         pygame.draw.rect(screen, Color.from_name("GRAY").get_rgba(), pygame.Rect(self.x, self.y+20, self.width, self.height))
         screen.blit(self.font.render(self.title), (self.x + 2, self.y + 2))
         pygame.draw.rect(screen, Color.from_name("RED").get_rgba(), pygame.Rect(self.x + self.width - 18, self.y+2, 16, 16))
+
+        for i in self.widgets:
+            i.show(screen)
 
     
