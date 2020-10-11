@@ -6,7 +6,7 @@ import sys
 pygame.init()
 
 from naos.utils import Color
-from naos.graphics.entities import NaOSBar, Window
+from naos.graphics.entities import *
 
 class NaOS:
     def __init__(self, debug=False):
@@ -31,9 +31,12 @@ class NaOS:
         self.is_running = False
 
         self.naosbar = NaOSBar()
+        self.startmenu = StartMenu()
         self.entities = [Window("Test", 200, 200), Window("Test2", 500, 500, 300)]
         for i in self.entities:
             i.naos = self
+        self.startmenu.naos = self
+        self.naosbar.naos = self
 
     def stop(self):
         self.is_running = False
@@ -48,6 +51,7 @@ class NaOS:
 
             for i in self.entities:
                 i.show(self.screen)
+            self.startmenu.show(self.screen)
             self.naosbar.show(self.screen)
 
             if self.debug:

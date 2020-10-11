@@ -7,10 +7,11 @@ class NaOSBar:
     def __init__(self):
         self.logo = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "..", "files", "images", "logo.png")).convert()
         self.logo = pygame.transform.scale(self.logo, (20, 20))
+        self.naos = None
 
     def event(self, evt):
         if evt.type == pygame.MOUSEBUTTONUP and evt.button == pygame.BUTTON_LEFT and self.logo.get_rect(x=5, y=1055).collidepoint(evt.pos[0], evt.pos[1]):
-            print("CLICK")
+            self.naos.startmenu.open = not self.naos.startmenu.open
             return True
         return False
 
