@@ -5,7 +5,7 @@ from naos.utils import Color
 
 class NaOSBar:
     def __init__(self):
-        self.logo = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "..", "images", "logo.png")).convert()
+        self.logo = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "..", "files", "images", "logo.png")).convert()
         self.logo = pygame.transform.scale(self.logo, (20, 20))
 
     def event(self, evt):
