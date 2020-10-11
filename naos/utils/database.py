@@ -36,5 +36,5 @@ CREATE TABLE IF NOT EXISTS parameters(
     background TEXT
 )""")
 
-        if not self.executewithreturn("""SELECT id FROM parameters"""):
+        if not self.executewithreturn("""SELECT background FROM parameters"""):
             self.executewithoutreturn("""INSERT INTO parameters(background) VALUES(NULL)""")

@@ -21,16 +21,22 @@ class NaOS:
             if not os.path.exists(v):
                 os.makedirs(v)
 
-        self.bg_color = Color.from_name("BLACK")
-        self.debug = debug
-        if self.debug:
-            self.debug_font = pygame.font.SysFont("Arial", 15, 1)
-    
         pygame.display.set_caption("NaOS")
         self.screen = pygame.display.set_mode((1920,1080), pygame.FULLSCREEN | pygame.SCALED)
 
         self.clock = pygame.time.Clock()
         self.is_running = False
+
+        self.bg_color = Color.from_name("BLACK")
+        self.debug = debug
+        if self.debug:
+            self.debug_font = pygame.font.SysFont("Arial", 15, 1)
+        
+        background = self.db.executewithreturn("""SELECT background FROM parameters""")[0][0]
+        self.bg = None
+        if background is not None:
+            self.bg = pygame.image.load(os.path.join(self.paths["files"], background.replace("/", "\\"))).convert()
+            self.bg = pygame.transform.scale(self.bg, (1920, 1080))
 
         self.naosbar = NaOSBar()
         self.startmenu = StartMenu()
@@ -50,6 +56,8 @@ class NaOS:
                 self.process_event(event)
             
             self.screen.fill(self.bg_color.get_rgba())
+            if self.bg is not None:
+                self.screen.blit(self.bg, (0, 0))
 
             for i in self.entities:
                 i.show(self.screen)
