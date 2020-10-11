@@ -5,7 +5,7 @@ import sys
 
 pygame.init()
 
-from naos.utils import Color, Database
+from naos.utils import Color, Database, Font
 from naos.graphics.entities import *
 
 class NaOS:
@@ -30,7 +30,7 @@ class NaOS:
         self.bg_color = Color.from_name("BLACK")
         self.debug = debug
         if self.debug:
-            self.debug_font = pygame.font.SysFont("Arial", 15, 1)
+            self.debug_font = Font()
         
         background = self.db.executewithreturn("""SELECT background FROM parameters""")[0][0]
         self.bg = None
@@ -66,9 +66,9 @@ class NaOS:
 
             if self.debug:
                 try:
-                    fps_label = self.debug_font.render("FPS : " + str(round(self.clock.get_fps())), 0, Color.from_name("WHITE").get_rgba())
+                    fps_label = self.debug_font.render("FPS : " + str(round(self.clock.get_fps())))
                 except OverflowError:
-                    fps_label = self.debug_font.render("FPS : Infinity", 0, Color.from_name("WHITE").get_rgba())
+                    fps_label = self.debug_font.render("FPS : Infinity")
                 self.screen.blit(fps_label, (10, 10))
 
 
