@@ -13,8 +13,8 @@ class NaOS:
     def __init__(self, debug=False):
         self.paths = {
             "files": os.path.join(os.getenv('APPDATA'), "NaOS"),
-            "users_files": os.path.join(os.getenv('APPDATA'), "NaOS", "users"),
-            "programs_files": os.path.join(os.getenv('APPDATA'), "NaOS", "programs"),
+            "users": os.path.join(os.getenv('APPDATA'), "NaOS", "users"),
+            "programs": os.path.join(os.getenv('APPDATA'), "NaOS", "programs"),
         }
         self.db = Database(os.path.join(os.path.dirname(__file__), "files", "data.db"))
         self.db.createdb()
@@ -86,6 +86,8 @@ class NaOS:
     def process_event(self, evt):
         if evt.type == pygame.QUIT or (evt.type == pygame.KEYUP and evt.key == pygame.K_ESCAPE):
             self.stop()
+        if evt.type == pygame.KEYUP and evt.key == pygame.K_p:
+            pygame.image.save(self.screen, os.path.join(self.paths["users"], "screenshot.jpg"))
         else:
             for i in range(len(self.windows)):
                 entity = self.windows[i]
