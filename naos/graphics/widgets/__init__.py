@@ -1,2 +1,2 @@
 from naos.graphics.widgets.label import Label
-from naos.graphics.widgets.widget import Widget
+from naos.graphics.widgets.button import Button
