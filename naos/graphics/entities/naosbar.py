@@ -15,5 +15,6 @@ class NaOSBar:
         return False
 
     def show(self, screen):
+        pygame.draw.rect(screen, Color.from_name("BLACK").get_rgba(), pygame.Rect(-1, 1049, 1922, 32))
         pygame.draw.rect(screen, Color.from_name("GRAY").get_rgba(), pygame.Rect(0, 1050, 1920, 30))
         screen.blit(self.logo, (5, 1055))

@@ -35,6 +35,7 @@ class Window:
         return False
 
     def show(self, screen):
+        pygame.draw.rect(screen, Color.from_name("BLACK").get_rgba(), pygame.Rect(self.x-1, self.y-1, self.width + 2, self.height + 22))
         pygame.draw.rect(screen, Color.from_name("GRAY").darker(2).get_rgba(), pygame.Rect(self.x, self.y, self.width, 20))
         pygame.draw.rect(screen, Color.from_name("GRAY").get_rgba(), pygame.Rect(self.x, self.y+20, self.width, self.height))
         screen.blit(self.font.render(self.title, 0, Color.from_name("WHITE").get_rgba()), (self.x + 2, self.y + 2))
