@@ -5,7 +5,7 @@ import sys
 
 pygame.init()
 
-from naos.utils import Color
+from naos.utils import Color, Database
 from naos.graphics.entities import *
 
 class NaOS:
@@ -15,6 +15,8 @@ class NaOS:
             "users_files": os.path.join(os.getenv('APPDATA'), "NaOS", "users"),
             "programs_files": os.path.join(os.getenv('APPDATA'), "NaOS", "programs"),
         }
+        self.db = Database(os.path.join(os.path.dirname(__file__), "files", "data.db"))
+        self.db.createdb()
         for v in self.paths.values():
             if not os.path.exists(v):
                 os.makedirs(v)
