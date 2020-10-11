@@ -25,9 +25,12 @@ class Window:
         for i in self.widgets:
             i.update()
 
+    def close(self):
+        self.naos.windows.remove(self)
+
     def event(self, evt):
         if evt.type == pygame.MOUSEBUTTONUP and evt.button == pygame.BUTTON_LEFT and  pygame.Rect(self.x + self.width - 18, self.y+2, 16, 16).collidepoint(evt.pos[0], evt.pos[1]):
-            self.naos.windows.remove(self)
+            self.close()
             return True
         if evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT and pygame.Rect(self.x, self.y, self.width, 20).collidepoint(evt.pos[0], evt.pos[1]):
             self.is_dragged = True
