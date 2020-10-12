@@ -15,6 +15,7 @@ class Window:
         self.is_dragged = False
         self.drag_offset = [0, 0]
         self.widgets = []
+        self.focus = False
 
     def add_widget(self, widget):
         if widget.parent is None:
@@ -45,9 +46,10 @@ class Window:
             self.y = evt.pos[1] - self.drag_offset[1]
             return True
 
-        for i in self.widgets:
-            if i.event(evt):
-                return True
+        if self.focus:
+            for i in self.widgets:
+                if i.event(evt):
+                    return True
         return False
 
     def show(self, screen):

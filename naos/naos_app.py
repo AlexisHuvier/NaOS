@@ -49,8 +49,14 @@ class NaOS:
         self.windows = [Window("Test", 200, 200), test]
         for i in self.windows:
             i.naos = self
+        self.windows[-1].focus = True
         self.startmenu.naos = self
         self.naosbar.naos = self
+
+    def get_focused_window(self):
+        for i in self.windows:
+            if i.focus:
+                return i
 
     def stop(self):
         self.is_running = False
@@ -96,7 +102,9 @@ class NaOS:
                 entity = self.windows[i]
                 if entity.event(evt):
                     if entity in self.windows:
-                        self.windows = self.windows[:i] + self.windows[i+1:] + [self.windows[i]]
+                        self.windows = self.windows[:i] + self.windows[i+1:] + [entity]
+                        self.get_focused_window().focus = False
+                        entity.focus = True
                     return
             self.naosbar.event(evt)
 
