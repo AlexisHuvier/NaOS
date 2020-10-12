@@ -13,14 +13,15 @@ class NaOS:
     def __init__(self, debug=False):
         self.paths = {
             "files": os.path.join(os.getenv('APPDATA'), "NaOS"),
+            "system": os.path.join(os.getenv('APPDATA'), "NaOS", "system"),
             "users": os.path.join(os.getenv('APPDATA'), "NaOS", "users"),
             "programs": os.path.join(os.getenv('APPDATA'), "NaOS", "programs"),
         }
-        self.db = Database(os.path.join(os.path.dirname(__file__), "files", "data.db"))
-        self.db.createdb()
         for v in self.paths.values():
             if not os.path.exists(v):
                 os.makedirs(v)
+        self.db = Database(os.path.join(self.paths["system"], "data.db"))
+        self.db.createdb()
 
         pygame.display.set_caption("NaOS")
         self.screen = pygame.display.set_mode((1920,1080), pygame.FULLSCREEN | pygame.SCALED)
