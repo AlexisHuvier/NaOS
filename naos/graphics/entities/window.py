@@ -1,6 +1,6 @@
 import pygame
 
-from naos.utils import Color, Font
+from naos.utils import Color, Font, clamp
 
 
 class Window:
@@ -59,8 +59,12 @@ class Window:
         screen.blit(self.font.render(self.title), (self.x + 4, self.y + 2))
         pygame.draw.rect(screen, Color.from_name("RED").get_rgba(), pygame.Rect(self.x + self.width - 18, self.y+2, 16, 16))
 
-        intra_canvas = screen.subsurface(pygame.Rect(self.x, self.y+20, self.width, self.height))
-        for i in self.widgets:
-            i.show(intra_canvas)
+            x = clamp(self.x, 0, 1920)
+            y = clamp(self.y + 20, 0, 1080)
+            width = clamp(self.width, 0, 1920 - x)
+            height = clamp(self.height, 0, 1080 - y)
+            intra_canvas = screen.subsurface(pygame.Rect(x, y, width, height))
+            for i in self.widgets:
+                i.show(intra_canvas)
 
     
