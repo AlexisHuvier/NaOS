@@ -101,8 +101,11 @@ class NaOS:
         if evt.type == pygame.KEYUP and evt.key == pygame.K_p:
             pygame.image.save(self.screen, os.path.join(self.paths["users"], "screenshot.jpg"))
         else:
+            if self.get_focused_window() is not None and self.get_focused_window().event(evt):
+                return
+            
             for i in self.windows:
-                if i.event(evt):
+                if self.get_focused_window() != i and i.event(evt):
                     if self.get_focused_window() is not None:
                         self.get_focused_window().focus = False
                     i.focus = True
