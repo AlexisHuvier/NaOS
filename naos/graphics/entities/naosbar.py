@@ -8,7 +8,7 @@ class NaOSBar:
         self.logo = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "..", "files", "images", "logo.png")).convert()
         self.logo = pygame.transform.scale(self.logo, (20, 20))
         self.naos = None
-        self.font = Font(bold=True)
+        self.font = Font(size=17, bold=True)
 
     def event(self, evt):
         if evt.type == pygame.MOUSEBUTTONUP and evt.button == pygame.BUTTON_LEFT:
@@ -17,7 +17,7 @@ class NaOSBar:
                 return True
             
             for i, window in enumerate(self.naos.windows):
-                if pygame.Rect(40+25*i, 1055, 20, 20).collidepoint(evt.pos[0], evt.pos[1]):
+                if pygame.Rect(40+27*i, 1055, 20, 20).collidepoint(evt.pos[0], evt.pos[1]):
                     window.open = not window.open
                     return True
 
@@ -29,6 +29,6 @@ class NaOSBar:
         screen.blit(self.logo, (5, 1055))
         pygame.draw.line(screen, Color.from_name("BLACK").get_rgba(), (30, 1049), (30, 1080), 3)
         for i, window in enumerate(self.naos.windows):
-            pygame.draw.rect(screen, Color.from_name("GRAY").lighter(2).get_rgba(), pygame.Rect(40+25*i, 1055, 20, 20))
-            screen.blit(self.font.render(window.title[0]), (40+25*i + (10 - self.font.rendered_size(window.title[0])[0] / 2), 1055 + (10 - self.font.rendered_size(window.title[0])[1] / 2)))
+            pygame.draw.rect(screen, Color.from_name("GRAY").darker(3).get_rgba(), pygame.Rect(40+27*i, 1054, 22, 22))
+            screen.blit(self.font.render(window.title[0]), (40+27*i + (11 - self.font.rendered_size(window.title[0])[0] / 2), 1054 + (11 - self.font.rendered_size(window.title[0])[1] / 2)))
 
