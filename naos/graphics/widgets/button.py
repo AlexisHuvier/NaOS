@@ -1,7 +1,7 @@
 import pygame
 
 from naos.graphics.widgets.widget import Widget
-from naos.utils import Font, Color
+from naos.utils import Font, Color, clamp
 
 class Button(Widget):
     def __init__(self, x, y, text, command=None, font=Font(), size=(100, 40),
@@ -12,6 +12,7 @@ class Button(Widget):
         self.font = font
         self.background = background
         self.size = size
+        self.is_hover = False
         self.update_render()
 
     def update_render(self):
@@ -34,7 +35,33 @@ class Button(Widget):
     def event(self, evt):
         if self.is_showed:
             if evt.type == pygame.MOUSEBUTTONUP and evt.button == pygame.BUTTON_LEFT:
-                if self.render.get_rect(x=self.x + self.parent.x, y=self.y + self.parent.y + 20).collidepoint(evt.pos[0], evt.pos[1]) and self.command is not None:
+                if self.render.get_rect(x=self.x + self.parent.x, y=self.y + self.parent.y).collidepoint(*evt.pos) and self.command is not None:
                     self.command()
                     return True
+
+            if evt.type == pygame.MOUSEMOTION:
+                if self.render.get_rect(x=self.x + self.parent.x, y=self.y + self.parent.y).collidepoint(*evt.pos):
+                    if not self.is_hover:
+                        t = pygame.surfarray.array3d(self.render)
+                        for l in range(len(t)):
+                            for c in range(len(t[l])):
+                                for p in range(3):
+                                    t[l, c, p] = clamp(t[l, c, p]+20, 0, 255)
+                        try:
+                            pygame.surfarray.blit_array(self.render, t)
+                        except ValueError:
+                            pass
+                        self.is_hover = True
+                elif self.is_hover:
+                    t = pygame.surfarray.array3d(self.render)
+                    for l in range(len(t)):
+                        for c in range(len(t[l])):
+                            for p in range(3):
+                                t[l, c, p] = clamp(t[l, c, p]-20, 0, 255)
+                    try:
+                        pygame.surfarray.blit_array(self.render, t)
+                    except ValueError:
+                        pass
+                    self.is_hover = False
+                
         return False
