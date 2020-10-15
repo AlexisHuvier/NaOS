@@ -6,7 +6,7 @@ from naos.utils import Color, Font
 class NaOSBar:
     def __init__(self):
         self.logo = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "..", "files", "images", "logo.png")).convert()
-        self.logo = pygame.transform.scale(self.logo, (20, 20))
+        self.logo = pygame.transform.scale(self.logo, (26, 26))
         self.naos = None
         self.font = Font(size=17, bold=True)
 
