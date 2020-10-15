@@ -46,7 +46,7 @@ class NaOS:
         test.add_widget(Label(2, 2, "Ceci est un bon test je trouve."))
         test.add_widget(Label(2, 50, "Ceci est un test\nAvec plusieurs lignes.\nNon ?"))
         test.add_widget(Button(2, 200, "Close", test.close))
-        self.windows = [Window("Test", 200, 200), test]
+        self.windows = [Window("Test with a long title", 200, 200), test]
         for i in self.windows:
             i.naos = self
         self.windows[-1].focus = True

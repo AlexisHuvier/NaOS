@@ -69,9 +69,9 @@ class Window:
             pygame.draw.rect(screen, Color.from_name("GRAY").darker(2).get_rgba(), pygame.Rect(self.x, self.y, self.width, 20))
             pygame.draw.rect(screen, Color.from_name("GRAY").get_rgba(), pygame.Rect(self.x, self.y+20, self.width, self.height))
             screen.blit(self.font.render(self.title), (self.x + 4, self.y + 2))
-            pygame.draw.rect(screen, Color.from_name("GRAY").darker(5).get_rgba(), pygame.Rect(self.x + self.width - 36, self.y + 2, 16, 16))
-            pygame.draw.line(screen, Color.from_name("BLACK").get_rgba(), (self.x + self.width - 32, self.y + 9), (self.x + self.width - 24, self.y + 9), 2)
-            pygame.draw.rect(screen, Color.from_name("RED").get_rgba(), pygame.Rect(self.x + self.width - 18, self.y+2, 16, 16))
+            temp = self.title
+            while temp != "..." and self.font.rendered_size(temp)[0] > self.width - 44:
+                temp = temp[:-1] if temp == self.title else temp[:-4] + "..."
 
             x = clamp(self.x, 0, 1920)
             y = clamp(self.y + 20, 0, 1080)
