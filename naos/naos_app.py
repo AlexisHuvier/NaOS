@@ -23,8 +23,11 @@ class NaOS:
         self.db = Database(os.path.join(self.paths["system"], "data.db"))
         self.db.createdb()
 
+        self.width = 1920 # min 600x500 environ
+        self.height = 1080 
+
         pygame.display.set_caption("NaOS")
-        self.screen = pygame.display.set_mode((1920,1080), pygame.FULLSCREEN | pygame.SCALED)
+        self.screen = pygame.display.set_mode((self.width, self.height), pygame.FULLSCREEN | pygame.SCALED)
 
         self.clock = pygame.time.Clock()
         self.is_running = False
@@ -38,7 +41,7 @@ class NaOS:
         self.bg = None
         if background is not None:
             self.bg = pygame.image.load(os.path.join(self.paths["files"], background.replace("/", "\\"))).convert()
-            self.bg = pygame.transform.scale(self.bg, (1920, 1080))
+            self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
 
         self.naosbar = NaOSBar()
         self.startmenu = StartMenu()
