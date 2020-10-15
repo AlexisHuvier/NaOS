@@ -44,7 +44,7 @@ class NaOS:
             self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
 
         self.naosbar = NaOSBar()
-        self.startmenu = StartMenu()
+        self.startmenu = StartMenu(self)
         test = Window("More Advanced Test", 480, 300, 500, 500)
         test.add_widget(Label(2, 2, "Ceci est un bon test je trouve."))
         test.add_widget(Label(2, 50, "Ceci est un test\nAvec plusieurs lignes.\nNon ?"))
@@ -113,7 +113,8 @@ class NaOS:
                         self.get_focused_window().focus = False
                     i.focus = True
                     return
-            self.naosbar.event(evt)
+            if self.naosbar.event(evt) or self.startmenu.event(evt):
+                return
 
 
 
