@@ -1,6 +1,6 @@
 import pygame
 
-from naos.graphics.widgets import Button
+from naos.graphics.widgets import Button, Line
 from naos.utils import Color
 
 class StartMenu:
@@ -8,14 +8,15 @@ class StartMenu:
         self.open = False
         self.naos = naos
         self.x = 0
-        self.y = self.naos.height - 430
+        self.y = self.naos.height - 202
         self.width = 300
-        self.height = 400
+        self.height = 202
 
         self.widgets = [
             Button(10, 10, "Programmes", size = (self.width - 20, 40)), 
             Button(10, 60, "Paramètres", size = (self.width - 20, 40)), 
-            Button(10, 110, "Eteindre", size = (self.width - 20, 40))
+            Line(0, 110, 300),
+            Button(10, 120, "Eteindre", self.naos.stop, size=(self.width - 20, 40))
         ]
         for i in self.widgets:
             i.parent = self
