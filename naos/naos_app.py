@@ -8,6 +8,7 @@ pygame.init()
 from naos.utils import Color, Database, Font
 from naos.graphics.entities import *
 from naos.graphics.widgets import *
+from naos.program import ProgramManager
 
 class NaOS:
     def __init__(self, debug=False):
@@ -55,6 +56,7 @@ class NaOS:
         self.windows[-1].focus = True
         self.startmenu.naos = self
         self.naosbar.naos = self
+        self.program_manager = ProgramManager()
 
     def get_focused_window(self):
         for i in self.windows:
