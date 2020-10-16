@@ -52,10 +52,13 @@ class NaOS:
         self.naosbar.naos = self
         self.program_manager = ProgramManager()
 
-    def get_focused_window(self):
-        for i in self.windows:
-            if i.focus:
-                return i
+    def open_window(self, window):
+        self.windows.append(window)
+        window.naos = self
+        window.focus = True
+        if self.focused_window is not None:
+            self.focused_window = False
+        self.focused_window = window
 
     def stop(self):
         self.is_running = False

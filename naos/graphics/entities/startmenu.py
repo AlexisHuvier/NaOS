@@ -13,13 +13,16 @@ class StartMenu:
         self.height = 202
 
         self.widgets = [
-            Button(10, 10, "Programmes", size = (self.width - 20, 40)), 
+            Button(10, 10, "Programmes", self.open_program, size = (self.width - 20, 40)), 
             Button(10, 60, "Paramètres", size = (self.width - 20, 40)), 
             Line(0, 110, 300),
             Button(10, 120, "Eteindre", self.naos.stop, size=(self.width - 20, 40))
         ]
         for i in self.widgets:
             i.parent = self
+
+    def open_program(self):
+        self.naos.open_window(self.naos.program_manager.get_program("Programmes").get_instance(self.naos))
 
     def event(self, evt):
         if self.open:
