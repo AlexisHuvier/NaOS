@@ -74,10 +74,10 @@ class NaOS:
                 self.screen.blit(self.bg, (0, 0))
 
             for i in self.windows:
-                if not i.focus:
+                if self.focused_window is not None and i != self.focused_window:
                     i.show(self.screen)
-            if self.get_focused_window() is not None:
-                self.get_focused_window().show(self.screen)
+            if self.focused_window is not None:
+                self.focused_window.show(self.screen)
             self.startmenu.show(self.screen)
             self.naosbar.show(self.screen)
 
@@ -100,13 +100,14 @@ class NaOS:
         if evt.type == pygame.KEYUP and evt.key == pygame.K_p:
             pygame.image.save(self.screen, os.path.join(self.paths["users"], "screenshot.jpg"))
         else:
-            if self.get_focused_window() is not None and self.get_focused_window().event(evt):
+            if self.focused_window is not None and self.focused_window.event(evt):
                 return
             
             for i in self.windows:
-                if self.get_focused_window() != i and i.event(evt):
-                    if self.get_focused_window() is not None:
-                        self.get_focused_window().focus = False
+                if self.focused_window != i and i.event(evt):
+                    if self.focused_window is not None:
+                        self.focused_window.focus = False
+                    self.focused_window = i
                     i.focus = True
                     return
             if self.naosbar.event(evt) or self.startmenu.event(evt):
