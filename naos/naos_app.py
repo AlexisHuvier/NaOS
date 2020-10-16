@@ -23,7 +23,7 @@ class NaOS:
         self.db = Database(os.path.join(self.paths["system"], "data.db"))
         self.db.createdb()
 
-        self.width = 1920 # min 600x500 environ
+        self.width = 1920
         self.height = 1080 
 
         pygame.display.set_caption("NaOS")
@@ -99,7 +99,7 @@ class NaOS:
         pygame.quit()
     
     def process_event(self, evt):
-        if evt.type == pygame.QUIT or (evt.type == pygame.KEYUP and evt.key == pygame.K_ESCAPE):
+        if evt.type == pygame.QUIT:
             self.stop()
         if evt.type == pygame.KEYUP and evt.key == pygame.K_p:
             pygame.image.save(self.screen, os.path.join(self.paths["users"], "screenshot.jpg"))
