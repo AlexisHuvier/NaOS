@@ -40,18 +40,17 @@ class Button(Widget):
                     return True
 
             if evt.type == pygame.MOUSEMOTION:
-                if self.render.get_rect(x=self.x + self.parent.x, y=self.y + self.parent.y).collidepoint(*evt.pos):
-                    if not self.is_hover:
-                        t = pygame.surfarray.array3d(self.render)
-                        for l in range(len(t)):
-                            for c in range(len(t[l])):
-                                for p in range(3):
-                                    t[l, c, p] = clamp(t[l, c, p]+20, 0, 255)
-                        try:
-                            pygame.surfarray.blit_array(self.render, t)
-                        except ValueError:
-                            pass
-                        self.is_hover = True
+                if self.render.get_rect(x=self.x + self.parent.x, y=self.y + self.parent.y).collidepoint(*evt.pos) and not self.is_hover:
+                    t = pygame.surfarray.array3d(self.render)
+                    for l in range(len(t)):
+                        for c in range(len(t[l])):
+                            for p in range(3):
+                                t[l, c, p] = clamp(t[l, c, p]+20, 0, 255)
+                    try:
+                        pygame.surfarray.blit_array(self.render, t)
+                    except ValueError:
+                        pass
+                    self.is_hover = True
                 elif self.is_hover:
                     t = pygame.surfarray.array3d(self.render)
                     for l in range(len(t)):
