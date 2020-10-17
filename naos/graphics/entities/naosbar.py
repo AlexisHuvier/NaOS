@@ -32,7 +32,7 @@ class NaOSBar:
     def show(self, screen):
         pygame.draw.rect(screen, Color.from_name("BLACK").get_rgba(), pygame.Rect(-1, self.naos.height - 33, self.naos.width + 2, 34))
         pygame.draw.rect(screen, Color.from_name("GRAY").get_rgba(), pygame.Rect(0, self.naos.height - 32, self.naos.width, 32))
-        screen.blit(self.logo, (5, self.naos.height - 29))
+        screen.blit(self.logo, (6, self.naos.height - 28))
         pygame.draw.line(screen, Color.from_name("BLACK").get_rgba(), (38, self.naos.height - 33), (38, self.naos.height), 3)
         for i, window in enumerate(self.naos.windows):
             pygame.draw.rect(screen, Color.from_name("GRAY").darker(3).get_rgba(), pygame.Rect(50+27*i, self.naos.height - 27, 22, 22))

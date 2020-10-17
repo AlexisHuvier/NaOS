@@ -18,6 +18,12 @@ class Window:
         self.focus = False
         self.open = True
 
+    def get_real_y(self):
+        return self.y
+
+    def get_real_x(self):
+        return self.x
+
     def add_widget(self, widget):
         if widget.parent is None:
             self.widgets.append(widget)
@@ -29,6 +35,12 @@ class Window:
 
     def close(self):
         self.naos.windows.remove(self)
+        if self.naos.focused_window == self:
+            self.focus = False
+            if len(self.naos.windows):
+                self.naos.focused_window = self.naos.windows[-1]
+            else:
+                self.naos.focused_window = None
 
     def event(self, evt):
         if self.open:

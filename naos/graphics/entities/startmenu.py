@@ -21,6 +21,12 @@ class StartMenu:
         for i in self.widgets:
             i.parent = self
 
+    def get_real_y(self):
+        return self.y
+
+    def get_real_x(self):
+        return self.x
+
     def open_program(self):
         self.naos.open_window(self.naos.program_manager.get_program("Programmes").get_instance(self.naos))
 
