@@ -28,6 +28,7 @@ class StartMenu:
         return self.x
 
     def open_program(self):
+        self.open = False
         self.naos.open_window(self.naos.program_manager.get_program("Programmes").get_instance(self.naos))
 
     def event(self, evt):
