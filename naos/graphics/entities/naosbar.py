@@ -18,13 +18,12 @@ class NaOSBar:
             
             for i, window in enumerate(self.naos.windows):
                 if pygame.Rect(50+27*i, self.naos.height - 27, 20, 20).collidepoint(*evt.pos):
-                    if not window.focus:
-                        if self.naos.focused_window is not None:
-                            self.naos.focused_window.focus = False
-                        self.naos.focused_window = window
-                        window.focus = True
+                    if window.open and window.focus:
+                        self.naos.focus_window(None)
+                        window.open = False
                     else:
-                        window.open = not window.open
+                        self.naos.focus_window(window)
+                        window.open = True                    
                     return True
 
         return False

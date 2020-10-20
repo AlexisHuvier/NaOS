@@ -4,6 +4,7 @@ import os
 import sys
 
 pygame.init()
+pygame.fastevent.init()
 
 from naos.utils import Color, Database, Font
 from naos.graphics.entities import *
@@ -52,13 +53,17 @@ class NaOS:
         self.naosbar.naos = self
         self.program_manager = ProgramManager()
 
+    def focus_window(self, window):
+        if self.focused_window is not None:
+            self.focused_window.focus = False
+        self.focused_window = window
+        if window is not None:
+            window.focus = True
+
     def open_window(self, window):
         self.windows.append(window)
         window.naos = self
-        window.focus = True
-        if self.focused_window is not None:
-            self.focused_window = False
-        self.focused_window = window
+        self.focus_window(window)
 
     def stop(self):
         self.is_running = False
@@ -66,7 +71,7 @@ class NaOS:
     def run(self):
         self.is_running = True
         while self.is_running:
-            for event in pygame.event.get():
+            for event in pygame.fastevent.get():
                 self.process_event(event)
 
             for i in self.windows:
@@ -108,10 +113,7 @@ class NaOS:
             
             for i in self.windows:
                 if self.focused_window != i and i.event(evt):
-                    if self.focused_window is not None:
-                        self.focused_window.focus = False
-                    self.focused_window = i
-                    i.focus = True
+                    self.focus_window(i)
                     return
             if self.naosbar.event(evt) or self.startmenu.event(evt):
                 return
