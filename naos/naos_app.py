@@ -77,7 +77,7 @@ class NaOS:
                 self.screen.blit(self.bg, (0, 0))
 
             for i in self.windows:
-                if self.focused_window is not None and i != self.focused_window:
+                if self.focused_window is None or i != self.focused_window:
                     i.show(self.screen)
             if self.focused_window is not None:
                 self.focused_window.show(self.screen)
