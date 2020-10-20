@@ -26,7 +26,7 @@ class ScrollPanel(Widget):
 
     def event(self, evt):
         if self.is_showed:
-            if evt.type == pygame.MOUSEBUTTONUP and evt.button == pygame.BUTTON_LEFT:
+            if evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT:
                 if pygame.Rect(self.get_real_x() + self.width - 20, self.get_real_y(), 20, 20).collidepoint(*evt.pos):
                     if self.widgets[0].y <= -self.bornes[0]:
                         for i in self.widgets:

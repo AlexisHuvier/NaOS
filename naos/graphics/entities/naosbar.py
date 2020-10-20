@@ -11,7 +11,7 @@ class NaOSBar:
         self.font = Font(size=17, bold=True)
 
     def event(self, evt):
-        if evt.type == pygame.MOUSEBUTTONUP and evt.button == pygame.BUTTON_LEFT:
+        if evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT:
             if self.logo.get_rect(x=5, y=self.naos.height - 29).collidepoint(*evt.pos):
                 self.naos.startmenu.open = not self.naos.startmenu.open
                 return True

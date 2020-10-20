@@ -48,15 +48,16 @@ class Window:
                 if self.is_dragged:
                     self.is_dragged = False
                     self.drag_offset = [0, 0]
+
+            if evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT:
                 if pygame.Rect(self.x + self.width - 18, self.y - 18, 16, 16).collidepoint(*evt.pos):
                     self.close()
                 if pygame.Rect(self.x + self.width - 36, self.y - 18, 16, 16).collidepoint(*evt.pos):
                     self.open = not self.open
-
-            if evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT and pygame.Rect(self.x, self.y - 20, self.width, 20).collidepoint(*evt.pos):
-                self.is_dragged = True
-                self.drag_offset = [evt.pos[0] - self.x, evt.pos[1] - self.y]
-                return True
+                if pygame.Rect(self.x, self.y - 20, self.width, 20).collidepoint(*evt.pos):
+                    self.is_dragged = True
+                    self.drag_offset = [evt.pos[0] - self.x, evt.pos[1] - self.y]
+                    return True
             if evt.type == pygame.MOUSEMOTION and self.is_dragged:
                 self.x = evt.pos[0] - self.drag_offset[0]
                 self.y = evt.pos[1] - self.drag_offset[1]

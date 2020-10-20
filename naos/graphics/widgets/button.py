@@ -34,7 +34,7 @@ class Button(Widget):
 
     def event(self, evt):
         if self.is_showed:
-            if evt.type == pygame.MOUSEBUTTONUP and evt.button == pygame.BUTTON_LEFT:
+            if evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT:
                 if self.render.get_rect(x=self.get_real_x(), y=self.get_real_y()).collidepoint(*evt.pos) and self.command is not None:
                     self.command()
                     return True                
