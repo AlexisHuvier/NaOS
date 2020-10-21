@@ -4,11 +4,12 @@ from naos.graphics.widgets.widget import Widget
 from naos.utils import Font
 
 class Label(Widget):
-    def __init__(self, x, y, text, font=Font(size=16), background=None):
+    def __init__(self, x, y, text, font=Font(size=16), background=None, spacing_line=2):
         super().__init__(x, y)
         self.text = text
         self.font = font
         self.background = background
+        self.spacing_line = spacing_line
         self.update_render()
     
     def update_render(self):
