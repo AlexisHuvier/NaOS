@@ -2,6 +2,7 @@ import pygame
 import string
 
 from naos.graphics.widgets.widget import Widget
+from naos.graphics.widgets.label import Label
 from naos.utils import Font, clamp, Color
 
 class Entry(Widget):
@@ -10,23 +11,21 @@ class Entry(Widget):
         super(Entry, self).__init__(x, y)
 
         self.width = width
-        self.font = font
         self.image = image
+        self.label = Label(0, 0, "", font)
         self.text = ""
-        self.cursor = False
         self.focus = False
-        self.cursortimer = 20
         self.accepted = accepted
         self.render = None
         self.update_render()
     
     def update_render(self):
-        if self.cursor:
-            text = self.font.render(self.text+"I")
-        else:
-            text = self.font.render(self.text)
-        
-        x = clamp(self.width - text.get_rect().width - 10, maxi=10)
+        if self.label.text != self.text:
+            self.label.text = self.text
+            x = clamp(self.width - self.label.render.get_rect().width - 10, maxi=10)
+            self.label.x = x
+            self.label.y = self.render.get_rect().height / 2 - self.label.render.get_rect().height / 2
+            self.label.update_render()
 
         if self.image:
             self.render = pygame.image.load(self.image).convert()
@@ -37,16 +36,6 @@ class Entry(Widget):
             white = pygame.Surface((self.width - 8, 27))
             white.fill((255, 255, 255))
             self.render.blit(white, (4, 4))
-        if len(self.text) or self.cursor:
-            self.render.blit(text, (x, self.render.get_rect().height / 2 - text.get_rect().height / 2))
-    
-    def update(self):
-        if self.is_showed and self.focus:
-            if self.cursortimer <= 0:
-                self.cursor = not self.cursor
-                self.cursortimer = 20
-                self.update_render()
-            self.cursortimer -= 1
     
     def event(self, evt):
         if self.is_showed:
@@ -61,7 +50,6 @@ class Entry(Widget):
                     self.focus = True
                 else:
                     self.focus = False
-                    self.cursor = False
                     self.update_render()
 
     def keypress(self, key, mod):
@@ -74,3 +62,4 @@ class Entry(Widget):
     def show(self, screen):
         if self.is_showed:
             screen.blit(self.render, (self.x, self.y))
+            self.label.show(self.render)
