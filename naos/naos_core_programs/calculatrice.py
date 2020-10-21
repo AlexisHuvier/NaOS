@@ -9,7 +9,7 @@ class Calculatrice(Window):
     def __init__(self, naos):
         super(Calculatrice, self).__init__("Calculatrice", 262, 300)
         self.naos = naos
-        self.entry = Entry(10, 10, width=250)
+        self.entry = Entry(10, 10, width=242)
         self.add_widget(self.entry)
         self.add_widget(Button(10, 50, "0", lambda x="0": self.add_text(x), size=(180, 40)))
         for i in range(1, 10):
