@@ -4,3 +4,4 @@ from naos.graphics.widgets.line import Line
 from naos.graphics.widgets.scrollpanel import ScrollPanel
 from naos.graphics.widgets.image import Image
 from naos.graphics.widgets.entry import Entry
+from naos.graphics.widgets.rect import Rect
