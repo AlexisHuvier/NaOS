@@ -76,6 +76,7 @@ class NaOS:
 
             for i in self.windows:
                 i.update()
+            self.naosbar.update()
             
             self.screen.fill(self.bg_color.get_rgba())
             if self.bg is not None:
