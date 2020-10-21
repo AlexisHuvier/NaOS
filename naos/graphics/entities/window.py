@@ -35,12 +35,7 @@ class Window:
 
     def close(self):
         self.naos.windows.remove(self)
-        if self.naos.focused_window == self:
-            self.focus = False
-            if len(self.naos.windows):
-                self.naos.focused_window = self.naos.windows[-1]
-            else:
-                self.naos.focused_window = None
+        self.naos.focus_window(None)
 
     def event(self, evt):
         if self.open:
