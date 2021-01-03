@@ -42,9 +42,7 @@ class NaOS:
         
         background = self.db.executewithreturn("""SELECT background FROM parameters""")[0][0]
         self.bg = None
-        if background is not None:
-            self.bg = pygame.image.load(os.path.join(self.paths["files"], background.replace("/", "\\"))).convert()
-            self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
+        self.set_background(background)
 
         self.naosbar = NaOSBar()
         self.startmenu = StartMenu(self)
@@ -53,6 +51,12 @@ class NaOS:
         self.startmenu.naos = self
         self.naosbar.naos = self
         self.program_manager = ProgramManager()
+
+    def set_background(self, background):
+        if background is not None:
+            self.bg = pygame.image.load(os.path.join(self.paths["files"], background.replace("/", "\\"))).convert()
+            self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
+            self.db.executewithoutreturn("""UPDATE parameters SET background = ?""", (background,))
 
     def focus_window(self, window):
         if self.focused_window is not None:
