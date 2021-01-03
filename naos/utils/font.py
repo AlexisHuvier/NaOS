@@ -1,6 +1,6 @@
 import pygame
 
-from pyengine2.Utils.Color import Color
+from naos.utils.color import Color
 
 pygame.font.init()
 
