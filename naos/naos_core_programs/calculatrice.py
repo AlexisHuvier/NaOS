@@ -30,7 +30,10 @@ class Calculatrice(Window):
         self.entry.update_render()
     
     def eval_text(self):
-        self.entry.text = str(eval(self.entry.text))
+        try:
+            self.entry.text = str(eval(self.entry.text))
+        except:
+            self.entry.text = "ERROR"
         self.entry.update_render()
 
 program = {
