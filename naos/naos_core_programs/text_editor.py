@@ -1,5 +1,4 @@
 import os
-from math import *
 
 from naos.graphics.entities import Window
 from naos.graphics.widgets import *
