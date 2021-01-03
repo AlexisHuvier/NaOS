@@ -116,12 +116,14 @@ class NaOS:
         else:
             if self.focused_window is not None and self.focused_window.event(evt):
                 return
-            
-            for i in self.windows:
-                if self.focused_window != i and i.event(evt):
-                    if i in self.windows:
-                        self.focus_window(i)
+
+            for i in range(len(self.windows)-1, -1, -1):
+                window = self.windows[i]
+                if self.focused_window != window and window.event(evt):
+                    if window in self.windows:
+                        self.focus_window(window)
                     return
+            
             if self.naosbar.event(evt) or self.startmenu.event(evt):
                 return
 
