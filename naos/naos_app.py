@@ -111,8 +111,6 @@ class NaOS:
     def process_event(self, evt):
         if evt.type == pygame.QUIT:
             self.stop()
-        if evt.type == pygame.KEYUP and evt.key == pygame.K_p:
-            pygame.image.save(self.screen, os.path.join(self.paths["users"], "screenshot.jpg"))
         else:
             if self.focused_window is not None and self.focused_window.event(evt):
                 return
@@ -126,6 +124,9 @@ class NaOS:
             
             if self.naosbar.event(evt) or self.startmenu.event(evt):
                 return
+        
+        if evt.type == pygame.KEYUP and evt.key == pygame.K_PRINTSCREEN:
+            pygame.image.save(self.screen, os.path.join(self.paths["user"], "screenshot_"+datetime.now().strftime("%d-%m-%Y_%H-%M-%S")+".jpg"))
 
 
 
