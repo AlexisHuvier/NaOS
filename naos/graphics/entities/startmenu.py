@@ -14,7 +14,7 @@ class StartMenu:
 
         self.widgets = [
             Button(10, 10, "Programmes", self.open_program, size = (self.width - 20, 40)), 
-            Button(10, 60, "Paramètres", size = (self.width - 20, 40)), 
+            Button(10, 60, "Paramètres", self.open_parameters, size = (self.width - 20, 40)), 
             Line(0, 110, 300),
             Button(10, 120, "Eteindre", self.naos.stop, size=(self.width - 20, 40))
         ]
@@ -30,6 +30,10 @@ class StartMenu:
     def open_program(self):
         self.open = False
         self.naos.open_window(self.naos.program_manager.get_program("Programmes").get_instance(self.naos))
+    
+    def open_parameters(self):
+        self.open = False
+        self.naos.open_window(self.naos.program_manager.get_program("Parameters").get_instance(self.naos))
 
     def event(self, evt):
         if self.open:
