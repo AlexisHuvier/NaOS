@@ -6,7 +6,7 @@ import sys
 pygame.init()
 pygame.fastevent.init()
 
-from naos.utils import Color, Database, Font
+from naos.utils import Color, Database, Font, FileSystem
 from naos.graphics.entities import *
 from naos.graphics.widgets import *
 from naos.program import ProgramManager
@@ -16,9 +16,10 @@ class NaOS:
         self.paths = {
             "files": os.path.join(os.getenv('APPDATA'), "NaOS"),
             "system": os.path.join(os.getenv('APPDATA'), "NaOS", "system"),
-            "users": os.path.join(os.getenv('APPDATA'), "NaOS", "users"),
+            "user": os.path.join(os.getenv('APPDATA'), "NaOS", "user"),
             "programs": os.path.join(os.getenv('APPDATA'), "NaOS", "programs"),
         }
+        self.fs = FileSystem(self)
         for v in self.paths.values():
             if not os.path.exists(v):
                 os.makedirs(v)
