@@ -62,24 +62,33 @@ class Window:
                     if i.event(evt):
                         return True
             
-            if evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT and pygame.Rect(self.x, self.y, self.width, self.height).collidepoint(*evt.pos):
+            if evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT and \
+                    pygame.Rect(self.x, self.y, self.width, self.height).collidepoint(*evt.pos):
                 return True
 
         return False
 
     def show(self, screen):
         if self.open:
-            pygame.draw.rect(screen, Color.from_name("BLACK").get_rgba(), pygame.Rect(self.x-1, self.y-21, self.width + 2, self.height + 22))
-            pygame.draw.rect(screen, Color.from_name("GRAY").darker(2).get_rgba(), pygame.Rect(self.x, self.y-20, self.width, 20))
-            pygame.draw.rect(screen, Color.from_name("GRAY").get_rgba(), pygame.Rect(self.x, self.y, self.width, self.height))
+            pygame.draw.rect(screen, Color.from_name("BLACK").get_rgba(), pygame.Rect(self.x-1,
+                                                                                      self.y-21,
+                                                                                      self.width + 2,
+                                                                                      self.height + 22))
+            pygame.draw.rect(screen, Color.from_name("GRAY").darker(2).get_rgba(), pygame.Rect(self.x, self.y-20,
+                                                                                               self.width, 20))
+            pygame.draw.rect(screen, Color.from_name("GRAY").get_rgba(), pygame.Rect(self.x, self.y,
+                                                                                     self.width, self.height))
 
             temp = self.title
             while temp != "..." and self.font.rendered_size(temp)[0] > self.width - 44:
                 temp = temp[:-1] if temp == self.title else temp[:-4] + "..."
             screen.blit(self.font.render(temp), (self.x + 4, self.y - 18))
-            pygame.draw.rect(screen, Color.from_name("GRAY").darker(5).get_rgba(), pygame.Rect(self.x + self.width - 36, self.y - 18, 16, 16))
-            pygame.draw.line(screen, Color.from_name("BLACK").get_rgba(), (self.x + self.width - 32, self.y - 11), (self.x + self.width - 24, self.y - 11), 2)
-            pygame.draw.rect(screen, Color.from_name("RED").get_rgba(), pygame.Rect(self.x + self.width - 18, self.y - 18, 16, 16))
+            pygame.draw.rect(screen, Color.from_name("GRAY").darker(5).get_rgba(), pygame.Rect(self.x + self.width - 36,
+                                                                                               self.y - 18, 16, 16))
+            pygame.draw.line(screen, Color.from_name("BLACK").get_rgba(), (self.x + self.width - 32, self.y - 11),
+                             (self.x + self.width - 24, self.y - 11), 2)
+            pygame.draw.rect(screen, Color.from_name("RED").get_rgba(), pygame.Rect(self.x + self.width - 18,
+                                                                                    self.y - 18, 16, 16))
 
             x = clamp(self.x, 0, self.naos.width)
             y = clamp(self.y, 0, self.naos.height)
@@ -88,5 +97,3 @@ class Window:
             intra_canvas = screen.subsurface(pygame.Rect(x, y, width, height))
             for i in self.widgets:
                 i.show(intra_canvas)
-
-    

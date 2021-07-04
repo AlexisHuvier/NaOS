@@ -1,8 +1,6 @@
-import os
-
 from naos.graphics.entities import Window
 from naos.graphics.widgets import *
-from naos.utils import Color
+
 
 class TextEditor(Window):
     def __init__(self, naos):

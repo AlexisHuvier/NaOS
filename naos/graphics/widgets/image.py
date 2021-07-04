@@ -2,6 +2,7 @@ import pygame
 
 from naos.graphics.widgets.widget import Widget
 
+
 class Image(Widget):
     def __init__(self, x, y, sprite, size=None, rotation=0, flipx=False, flipy=False):
         super(Image, self).__init__(x, y)

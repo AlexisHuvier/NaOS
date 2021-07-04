@@ -3,6 +3,7 @@ import importlib
 
 from naos.program.program import Program
 
+
 class ProgramManager:
     def __init__(self):
         self.programs = []

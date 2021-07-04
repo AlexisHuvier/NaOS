@@ -1,7 +1,6 @@
-import os
-
 from naos.graphics.entities import Window
 from naos.graphics.widgets import *
+
 
 class ProgramLister(Window):
     def __init__(self, naos):
@@ -14,6 +13,7 @@ class ProgramLister(Window):
 
     def open_program(self, v):
         self.naos.open_window(self.naos.program_manager.get_program(v).get_instance(self.naos))
+
 
 program = {
     "instance": ProgramLister,

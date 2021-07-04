@@ -3,11 +3,12 @@ import string
 
 from naos.graphics.widgets.widget import Widget
 from naos.graphics.widgets.label import Label
-from naos.utils import Font, clamp, Color
+from naos.utils import Font, Color
+
 
 class TextEdit(Widget):
     def __init__(self, x, y, width=100, height=100, font=Font(color=Color.from_name("BLACK")),
-        accepted="èàçù€ "+string.digits+string.ascii_letters+string.punctuation, image=None):
+                 accepted="èàçù€ "+string.digits+string.ascii_letters+string.punctuation, image=None):
         super(TextEdit, self).__init__(x, y)
 
         self.width = width
@@ -44,7 +45,7 @@ class TextEdit(Widget):
                     self.text += evt.text
                     self.update_render()
             elif evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT:
-                if self.render.get_rect(x= self.get_real_x(), y= self.get_real_y()).collidepoint(*evt.pos):
+                if self.render.get_rect(x= self.get_real_x(), y=self.get_real_y()).collidepoint(*evt.pos):
                     self.focus = True
                 else:
                     self.focus = False

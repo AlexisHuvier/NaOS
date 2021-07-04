@@ -1,8 +1,7 @@
-import os
-
 from naos.graphics.entities import Window
 from naos.graphics.widgets import *
 from naos.utils import Font
+
 
 class Parameters(Window):
     def __init__(self, naos):
@@ -24,7 +23,6 @@ class Parameters(Window):
             self.naos.set_background(self.bg_entry.text)
 
         self.close()
-
 
 
 program = {

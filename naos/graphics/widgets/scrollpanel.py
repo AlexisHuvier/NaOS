@@ -5,6 +5,7 @@ from naos.graphics.widgets.button import Button
 from naos.graphics.widgets.label import Label
 from naos.utils import Color, clamp, Font
 
+
 class ScrollPanel(Widget):
     def __init__(self, x, y, width, height):
         super(ScrollPanel, self).__init__(x, y)
@@ -32,7 +33,8 @@ class ScrollPanel(Widget):
                         for i in self.widgets:
                             i.y += 10
                     return True
-                if pygame.Rect(self.get_real_x() + self.width - 20, self.get_real_y() + self.height - 20, 20, 20).collidepoint(*evt.pos):
+                if pygame.Rect(self.get_real_x() + self.width - 20,
+                               self.get_real_y() + self.height - 20, 20, 20).collidepoint(*evt.pos):
                     if self.widgets[0].y >= -self.bornes[1] + self.height:
                         for i in self.widgets:
                             i.y -= 10
@@ -44,11 +46,15 @@ class ScrollPanel(Widget):
     
     def show(self, screen):
         if self.is_showed:
-            pygame.draw.rect(screen, Color.from_name("GRAY").darker(2).get_rgba(), pygame.Rect(self.x, self.y, self.width, self.height))
-            pygame.draw.rect(screen, Color.from_name("GRAY").darker(4).get_rgba(), pygame.Rect(self.x + self.width - 20, self.y, 20, self.height))
-            pygame.draw.rect(screen, Color.from_name("GRAY").darker(6).get_rgba(), pygame.Rect(self.x + self.width - 20, self.y, 20, 20))
+            pygame.draw.rect(screen, Color.from_name("GRAY").darker(2).get_rgba(),
+                             pygame.Rect(self.x, self.y, self.width, self.height))
+            pygame.draw.rect(screen, Color.from_name("GRAY").darker(4).get_rgba(),
+                             pygame.Rect(self.x + self.width - 20, self.y, 20, self.height))
+            pygame.draw.rect(screen, Color.from_name("GRAY").darker(6).get_rgba(),
+                             pygame.Rect(self.x + self.width - 20, self.y, 20, 20))
             screen.blit(self.font.render("^"), (self.x + self.width - 14, self.y + 5))
-            pygame.draw.rect(screen, Color.from_name("GRAY").darker(6).get_rgba(), pygame.Rect(self.x + self.width - 20, self.y + self.height - 20, 20, 20))
+            pygame.draw.rect(screen, Color.from_name("GRAY").darker(6).get_rgba(),
+                             pygame.Rect(self.x + self.width - 20, self.y + self.height - 20, 20, 20))
             screen.blit(self.font.render("v"), (self.x + self.width - 14, self.y + self.height - 20))
 
             x = clamp(self.x, 0, self.width)

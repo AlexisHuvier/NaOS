@@ -1,7 +1,8 @@
 import pygame
 
 from naos.graphics.widgets.widget import Widget
-from naos.utils import Font, Color, clamp
+from naos.utils import Font, Color
+
 
 class Button(Widget):
     def __init__(self, x, y, text, command=None, font=Font(), size=(100, 40),
@@ -35,7 +36,8 @@ class Button(Widget):
     def event(self, evt):
         if self.is_showed:
             if evt.type == pygame.MOUSEBUTTONDOWN and evt.button == pygame.BUTTON_LEFT:
-                if self.render.get_rect(x=self.get_real_x(), y=self.get_real_y()).collidepoint(*evt.pos) and self.command is not None:
+                if self.render.get_rect(x=self.get_real_x(), y=self.get_real_y()).collidepoint(*evt.pos) and \
+                        self.command is not None:
                     self.command()
                     return True                
         return False

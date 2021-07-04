@@ -1,16 +1,15 @@
 import pygame
-import logging
 import os
 from datetime import datetime
 import sys
 
+from naos.utils import Color, Database, Font, FileSystem
+from naos.graphics.entities import *
+from naos.program import ProgramManager
+
 pygame.init()
 pygame.fastevent.init()
 
-from naos.utils import Color, Database, Font, FileSystem
-from naos.graphics.entities import *
-from naos.graphics.widgets import *
-from naos.program import ProgramManager
 
 class NaOS:
     def __init__(self, debug=False):
@@ -59,17 +58,17 @@ class NaOS:
             self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
             self.db.executewithoutreturn("""UPDATE parameters SET background = ?""", (background,))
 
-    def focus_window(self, window):
+    def focus_window(self, nw):
         if self.focused_window is not None:
             self.focused_window.focus = False
-        self.focused_window = window
-        if window is not None:
-            window.focus = True
+        self.focused_window = nw
+        if nw is not None:
+            nw.focus = True
 
-    def open_window(self, window):
-        self.windows.append(window)
-        window.naos = self
-        self.focus_window(window)
+    def open_window(self, nw):
+        self.windows.append(nw)
+        nw.naos = self
+        self.focus_window(nw)
 
     def stop(self):
         self.is_running = False
@@ -103,7 +102,6 @@ class NaOS:
                     fps_label = self.debug_font.render("FPS : Infinity")
                 self.screen.blit(fps_label, (10, 10))
 
-
             self.clock.tick()
             pygame.display.update()
         
@@ -117,18 +115,20 @@ class NaOS:
                 return
 
             for i in range(len(self.windows)-1, -1, -1):
-                window = self.windows[i]
-                if self.focused_window != window and window.event(evt):
-                    if window in self.windows:
-                        self.focus_window(window)
+                nw = self.windows[i]
+                if self.focused_window != nw and nw.event(evt):
+                    if nw in self.windows:
+                        self.focus_window(nw)
                     return
             
             if self.naosbar.event(evt) or self.startmenu.event(evt):
                 return
         
         if evt.type == pygame.KEYUP and evt.key == pygame.K_PRINTSCREEN:
-            pygame.image.save(self.screen, os.path.join(self.paths["user"], "screenshot_"+datetime.now().strftime("%d-%m-%Y_%H-%M-%S")+".jpg"))
-
+            pygame.image.save(
+                self.screen,
+                os.path.join(self.paths["user"], "screenshot_"+datetime.now().strftime("%d-%m-%Y_%H-%M-%S")+".jpg")
+            )
 
 
 def launch():
@@ -136,6 +136,7 @@ def launch():
         NaOS(True).run()
     else:
         NaOS().run()
-    
+
+
 if __name__ == "__main__":
     launch()
