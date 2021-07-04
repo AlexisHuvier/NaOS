@@ -16,8 +16,10 @@ class Label(Widget):
     def update_render(self):
         if "\n" in self.text:
             self.renders = [self.font.render(i) for i in self.text.split("\n")]
+            self.render = None
         else:
             self.render = self.font.render(self.text)
+            self.renders = None
     
     def show(self, screen):
         if self.is_showed and len(self.text):
