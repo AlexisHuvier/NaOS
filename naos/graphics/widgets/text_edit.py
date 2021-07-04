@@ -59,7 +59,6 @@ class TextEdit(Widget):
                 self.update_render()
         elif key == pygame.K_RETURN:
             self.text += "\n"
-            print(self.text)
             self.update_render()
     
     def show(self, screen):
