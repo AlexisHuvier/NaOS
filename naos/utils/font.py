@@ -7,7 +7,7 @@ pygame.font.init()
 
 class Font:
     def __init__(self, name="arial", size=15, bold=False, italic=False, underline=False,
-                 color=Color.from_name("WHITE"), background=None, antialias=False):
+                 color=Color.from_name("WHITE"), background=None, antialias=True):
         self.name = name
         self.size = size
         self.bold = bold
